@@ -1,1 +1,1 @@
-Repositório criado para armazenar aulas, exercícios e projetos referente ao meu aprendizado em Java.
+Repositório criado para armazenar aulas, exercícios e projetos referentes ao meu aprendizado em Java.
