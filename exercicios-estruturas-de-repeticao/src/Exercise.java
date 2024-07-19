@@ -22,9 +22,9 @@ public class Exercise {
             return;
           }
 
-        int termoAnterior = 0;
-        int termoAtual = 1;
-        int termoFibonacci = 0;
+        long termoAnterior = 0;
+        long termoAtual = 1;
+        long termoFibonacci = 0;
         for (int i = 2; i <= numero; i++) {
             termoFibonacci = termoAnterior + termoAtual;
             termoAnterior = termoAtual;
