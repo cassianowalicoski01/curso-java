@@ -16,9 +16,11 @@ public class Exercise {
 
         if (numero <= 0) {
             System.out.println(0);
+            scanner.close();
             return;
           } else if (numero == 1) {
             System.out.println(1);
+            scanner.close();
             return;
           }
 
