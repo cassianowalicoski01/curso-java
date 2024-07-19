@@ -1,6 +1,6 @@
 public class LoopsEmArrays {
     public static void main(String[] args) {
-        Integer [] numeros = new Integer[5];
+        int [] numeros = new int[5];
 
         // Loop comum
         for (int i = 0; i < numeros.length; i++) {
