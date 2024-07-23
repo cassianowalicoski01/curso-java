@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class comandos {
     public static void main(String[] args) {
         
@@ -40,12 +38,12 @@ public class comandos {
         concatenaPalavras.append("comum.");
         String palavraJaConcatenada = concatenaPalavras.toString();
 
-        //String nome = "Cassiano";
+        String meuNome = "Cassiano";
         String pais = "Brasil";
         String uf = "SC";
 
-        String textoFormatado1 = "Olá, eu sou o " + nome + " morro no " + pais + ", em " + uf; // Não fica muito legivel, ainda mais se o texto for grande.
-        String textoFormatado2 = "Olá, eu sou o %s morro no %s, em %s".formatted(nome, pais, uf); // Fica bem mais legivel, basta eu adicionar os identificadores de tipo no texto e depois passar como argumento na ordem certa as variáveis que vão substituir esses identificadores.
+        String textoFormatado1 = "Olá, eu sou o " + meuNome + " morro no " + pais + ", em " + uf; // Não fica muito legivel, ainda mais se o texto for grande.
+        String textoFormatado2 = "Olá, eu sou o %s morro no %s, em %s".formatted(meuNome, pais, uf); // Fica bem mais legivel, basta eu adicionar os identificadores de tipo no texto e depois passar como argumento na ordem certa as variáveis que vão substituir esses identificadores.
         
         // Números
 
@@ -57,5 +55,13 @@ public class comandos {
         Math.min(num1, num2); // Retorna o menor número -> 4
         Math.sqrt(num3); // Retorna a raiz quadrada de um número -> 4
         Math.random(); // Randomiza um número aleatório
+
+
+        System.out.println(arrayDeNome);
+        System.out.println(arrayDeTexto);
+        System.out.println(concatenacao);
+        System.out.println(palavraJaConcatenada);
+        System.out.println(textoFormatado1);
+        System.out.println(textoFormatado2);
     }
 }
