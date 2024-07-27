@@ -105,7 +105,6 @@ public class TodoList {
                 } else {
                     temEssaTodo = false;
                 }
-                
             }
 
             if (temEssaTodo == false) { // Se esse atríbuto for false significa que não existe uma tarefa com o mesmo título que foi passado por parâmetro.
