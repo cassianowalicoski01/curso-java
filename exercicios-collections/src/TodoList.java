@@ -29,26 +29,25 @@ public class TodoList {
     
     // Método adicionarTarefa
     public void adicionarTarefa(String titulo) {
-        String tituloUpper = titulo.toUpperCase(); // Transformo o titulo da tarefa em letras maiusculas para poder fazer as verificações, pois os usário pode ter digitado assim -> eStUdaR.
-        
-        if (!todos.isEmpty()) { // Se a lista de todos não for vazia
+        if (this.todos.isEmpty() == false) { // Se a lista de todos não for vazia
             for (String todo : todos) { // Percorro a lista
-                if (todo.equals(tituloUpper)) { // Se a todo atual for igual o titulo passado no parâmetro, o atríbuto temEssatarefa recebe true. Esse atríbuto serve para eu fazer a verificação se existe ou não uma tarefa com o título passado.
+                if (todo.equals(titulo.toUpperCase())) { // Se a todo atual for igual o titulo passado no parâmetro, o atríbuto temEssatarefa recebe true. Esse atríbuto serve para eu fazer a verificação se existe ou não uma tarefa com o título passado.
                     temEssaTodo = true;
-                    System.out.println("\nVocê já tem uma tarefa com esse título.\n");
+                    System.out.println("\n- [ATENÇÃO] Você já tem uma tarefa com esse título.");
+                    break; // Se eu encontrar alguma tarefa com o mesmo nome eu paro o loop for, poís senão parar o temEssaTodo vai receber false quando verificar as proximas todos, e consequentemente vai permitir adicionar uma tarefa com o mesmo nome.
                 } else {
                     temEssaTodo = false; // Se não tem nenhuma tarefa que tem o mesmo título do título passado no parâmetro então o atríbuto temEssaTarefa recebe false.
                 }
             }
 
             if (temEssaTodo == false) { // Se esse atríbuto for false significa que ainda não existe uma tarefa com o mesmo título que foi passado por parâmetro, então adiciono esse título a lista de tarefas.
-                this.todos.add(tituloUpper);
-                System.out.println("\nAdicionada nova tarefa: " + tituloUpper + "\n");
+                this.todos.add(titulo.toUpperCase());
+                System.out.println("\n- Adicionada nova tarefa: " + titulo.toUpperCase());
             }
             
         } else { // Caso a lista ainda esteja vazia adiciono o título da tarefa na lista
-            this.todos.add(tituloUpper);
-            System.out.println("\nAdicionada nova tarefa: " + tituloUpper + "\n");
+            this.todos.add(titulo.toUpperCase());
+            System.out.println("\n- Adicionada nova tarefa: " + titulo.toUpperCase());
         }
     }
 
@@ -57,18 +56,27 @@ public class TodoList {
         if (this.todos.isEmpty() == false) { // Antes de qualquer verificação, verifico se a lista de tarefas é vazia, por que poder ser que não tenha sido adicionada nenhuma tarefa ainda.
             for (String todo : this.todos) { // Percorro a lista de todos.
                 if (todo.equals(titulo.toUpperCase())) { // Verfico se tem alguma tarefa com o mesmo título do que foi passado por parâmetro.
-                    todosConcluidas.add(titulo.toUpperCase()); // Adiciona a tarefa na lista de tarefas concluídas.
-                    temEssaTodo = true;
+                    if (this.todosConcluidas.contains(todo) == false) { // Verifico se a tarefa já não foi adicionada na lista de tarefas concluídas usando o contains e passando a todo.
+                        todosConcluidas.add(titulo.toUpperCase()); // Adiciona a tarefa na lista de tarefas concluídas.
+                        temEssaTodo = true;
+                        System.out.println("\n- A tarefa: " + todo + " foi marcada como concluída.");
+                        break;
+                    } else {
+                        temEssaTodo = true;
+                        System.out.println("\n- [ATENÇÃO] A tarefa " + todo + " já foi marcada como concluída.");
+                        break;
+                    }
+                    
                 } else {
                     temEssaTodo = false;
                 }
             }
 
             if (temEssaTodo == false) { // Se esse atríbuto for false significa que não existe uma tarefa com o mesmo título que foi passado por parâmetro.
-                System.out.println("\nVOCÊ NÃO POSSUÍ NENHUMA TAREFA COM O NOME: " + titulo);
+                System.out.println("\n- [ATENÇÃO] Você não possuí nenhuma tarefa: " + titulo.toUpperCase());
             }
         } else { // Se a lista de tarefas for vazia imprimo a mensagem abaixo.
-            System.out.println("\nVOCÊ AINDA NÃO ADICIONOU NENHUMA TAREFA!\n");
+            System.out.println("\n- [ATENÇÃO] Você ainda não adicionou nenhuma tarefa!");
         }
     }
 
@@ -79,30 +87,32 @@ public class TodoList {
             while (iteradorTodos.hasNext()) { // O hasNext() verifica se eu ainda tenho um elemento na lista. Funciona como um ponteiro, começa apontando para o primeiro elemento e vai andando para a direita até acabar os elementos.
                 String todoAtual = iteradorTodos.next();
                 if (todoAtual.equals(titulo.toUpperCase())) { // Uso o equals() para comparar a igualdade de seus valores e não ==, pois eles comparam se o espaço da mémoria é igual.
-                    if (this.todosConcluidas.isEmpty() == false) {
-                        for (String todoConcluida : this.todosConcluidas) {
-                            if (todoAtual.equals(todoConcluida)) {
+                    if (this.todosConcluidas.isEmpty() == false) { // Verifico se a lista de todos concluídas não está vazia.
+                        for (String todoConcluida : this.todosConcluidas) { // Percorro a lista de todos concluídas.
+                            if (todoAtual.equals(todoConcluida)) { // Verifico se a todo atual é igual a todo concluída
                                 this.todosConcluidas.remove(todoConcluida); // Esse método de remoção dentro de um loop pode gerar ploblemas, pois estou tentando remover algo de que estou percorrendo. Eu poderia após fazer a verificação com o equals chama só iteradorTodos.remove() e depois break que iria remover a tarefa sem problemas.
-                                this.todos.remove(todoAtual); // Removo o item da lista a partir de seu titulo.
+                                this.todos.remove(todoAtual); // Removo o item da lista de todos a partir de seu titulo.
+                                temEssaTodo = true;
                                 break; // Tenho que parar o loop while depois de encontrar as tarefas.
                             }
                         }
                     } 
 
                     this.todos.remove(todoAtual); // Removo o item da lista a partir de seu titulo.
-                    
+                    System.out.println("\n- Tarefa: " + todoAtual + " foi deletada.");                    
                     temEssaTodo = true;
+                    break; // Tenho que parar o loop while depois de encontrar as tarefas.
                 } else {
                     temEssaTodo = false;
                 }
-                break;
+                
             }
 
             if (temEssaTodo == false) { // Se esse atríbuto for false significa que não existe uma tarefa com o mesmo título que foi passado por parâmetro.
-                System.out.println("\nVOCÊ NÃO POSSUÍ NENHUMA TAREFA COM O NOME: " + titulo);
+                System.out.println("\n- [ATENÇÃO] Você não possuí nenhuma tarefa com o nome: " + titulo);
             }
         } else { // Se a lista de tarefas for vazia imprimo a mensagem abaixo.
-            System.out.println("\nVOCÊ AINDA NÃO ADICIONOU NENHUMA TAREFA!\n");
+            System.out.println("\n- [ATENÇÃO] Você ainda não adicionou nenhuma tarefa!");
         }
     }
 
@@ -123,7 +133,7 @@ public class TodoList {
                 }
             }
         } else { // Se a lista de tarefas for vazia imprimo a mensagem abaixo.
-            System.out.println("\nVOCÊ AINDA NÃO ADICIONOU NENHUMA TAREFA!\n");
+            System.out.println("- [ATENÇÃO] Você ainda não adicionou nenhuma tarefa!");
         }
     }
 }
