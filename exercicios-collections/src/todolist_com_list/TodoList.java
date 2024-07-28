@@ -1,3 +1,4 @@
+package todolist_com_list;
 /*
  * Crie uma aplicação de lista de tarefas simples usando uma List para armazenar as tarefas. Cada tarefa deve ter um título e o status (concluída ou não). Siga as seguintes etapas:
  * 
@@ -16,6 +17,12 @@
  * [ ] Tarefa 1
  * [x] Tarefa 2
  * [ ] Tarefa 3
+ * 
+ * Para checar se uma todo existe na lista, você pode usar o método contains da List, que recebe a Todo que se deseja verificar. 
+ * Para que funcione, lembre-se de sobrescrever o método equals na classe Todo, para que a igualdade seja checada comparando o atributo titulo.
+ * 
+ * Lembre-se de usar o Iterator para remover a todo. 
+ * Quando não usamos um iterador seguro para modificar uma lista que está em loop (um for simples, por exemplo), pode ocorrer um erro de ConcurrentModificationException.
  */
 
 import java.util.ArrayList;
