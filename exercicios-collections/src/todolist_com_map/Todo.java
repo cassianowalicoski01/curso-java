@@ -43,10 +43,6 @@ public class Todo {
     @Override
     public int hashCode() {
         return this.titulo != null ? this.titulo.hashCode() : 0; // Se titulo não for null, o método hashCode da String é usado para calcular o código hash. Se titulo for null, o método retorna 0. Isso é uma prática comum para lidar com valores null, evitando exceções e proporcionando uma maneira consistente de lidar com casos onde o atributo é null.
+    }
+
 }
-
-
-}
-
-    
-

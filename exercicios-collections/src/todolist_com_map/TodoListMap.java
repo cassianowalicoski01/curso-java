@@ -18,19 +18,19 @@ import java.util.Map;
  */
 
 public class TodoListMap {
-    private Map<Todo, String> todos; // Aqui digo que o map vai receber como keys objetos Todo ou seja objetos criados a partir da class Todo e como value String.
+    private Map<Todo, String> todos; // Aqui digo que o map vai receber como key um objeto nesse caso Todo ou seja objetos criados a partir da class Todo e como value String.
 
-    public TodoListMap() {
+    public TodoListMap() { // Construtor.
         this.todos = new HashMap<>();
     }
 
     public void adicionarTarefa(String tituloTarefa, String tarefa) {
         Todo titulo = new Todo(tituloTarefa.toUpperCase()); // Crio uma nova instância da class Todo que espera um título para a tarefa, então passo como argumento o valor que recebo no parâmetro tituloTarefa como upperCase.
         if (!this.todos.containsKey(titulo)) { // Aqui verifico se o map de todos não contém nenhuma chave com o mesmo titulo da tarefa que acabou de ser criada.
-            this.todos.put(titulo, tarefa); // Então adiciono ao map a chave como o titulo da tarefa criada e o value com valor passado no parâmetro tarefa que é a tarefa em si..
-            System.out.println("* Adicionada tarefa: " + titulo);
+            this.todos.put(titulo, tarefa.toLowerCase()); // Então adiciono ao map a chave como o titulo da tarefa criada e o value com valor passado no parâmetro tarefa que é a descrição da tarefa em si em lowerCase.
+            System.out.println("\n* Adicionada tarefa: " + tituloTarefa);
         } else { // Caso já exista alguma tarefa com o titulo da tarefa que foi criada.
-            System.out.println("[ATENÇÃO] Você já tem uma tarefa com o nome: " + tituloTarefa);
+            System.out.println("\n[ATENÇÃO] Você já tem uma tarefa com o nome: " + tituloTarefa.toUpperCase());
         }
     }
 
@@ -41,19 +41,19 @@ public class TodoListMap {
                 if (tarefa.getTitulo().equals(tituloTarefa.toUpperCase())) { // Verifico se o título da tarefa atual é igual ao tituloTarefa em upperCase passado no parâmetro.
                     if (tarefa.isConcluida() == false) { // Verifico se a tarefa que estou tentando marcar como concluída já está marcada como concluída, se não estiver então a concluo abaixo.
                         tarefa.concluir(); // Então chamo o método concluir que é da class Todo, como tarefa é um objeto de Todo tenho acesso a esse método, assim como o isConcluida e o getTitulo que usei acima.
-                        System.out.println("* A tarefa " + tarefa + " foi marcada como concluída.");
+                        System.out.println("\n* A tarefa " + tituloTarefa.toUpperCase() + " foi marcada como concluída.");
                         temEssaTarefa = true;
                     } else { // Caso a tarefa já tenha sido marcada como concluída.
-                        System.out.println("[ATENÇÃO] Essa tarefa já foi marcada como concluida.");
+                        System.out.println("\n[ATENÇÃO] Essa tarefa já foi marcada como concluida.");
+                        temEssaTarefa = true;
                     }
-                } else {
-                    temEssaTarefa = false;
                 }
             }
             if (temEssaTarefa == false) // Se essa variável for false significa que não existe nenhuma tarefa para concluir com o mesmo titulo do que foi passado no parâmetro.
-                System.out.println("[ATENÇÃO] Você não tem nenhuma tarefa com o título: " + tituloTarefa);
+                System.out.println("\n[ATENÇÃO] Você não tem nenhuma tarefa com o título: " + tituloTarefa.toUpperCase()); // Não preciso usar as {} nesse if por que é só um bloco de comando.
+
         } else { // Caso o map seja vazio.
-            System.out.println("[ATENÇÃO] A sua lista de tarefas ainda está vazia.");
+            System.out.println("\n[ATENÇÃO] A sua lista de tarefas ainda está vazia.");
         }
     }
 
@@ -65,16 +65,14 @@ public class TodoListMap {
                 Todo chave = it.next(); // O método next() retorna o próximo elemento na coleção e avança o cursor interno do Iterator para o próximo elemento.
                 if (chave.getTitulo().equals(tituloTarefa.toUpperCase())) { // Se o título da chave atual for igual ao titiloTarefa passado no parâmetro.
                     it.remove(); // Removo o elemento do map utilizando o iterator, poís se utiliza-se um for por exemplo, receberia um erro caso não usasse um break para parar o loop depois de remover o elemento, pois estou modificando o estado do map ou list que estou percorrendo. Aqui com o iterator posso remover o elemento durante a iteração sem erros, ele é uma boa prática.
-                    System.out.println("* A tarefa: " + chave + " foi deletada da lista de tarefas.");
+                    System.out.println("\n* A tarefa: " + tituloTarefa.toUpperCase() + " foi deletada da lista de tarefas.");
                     temEssaTarefa = true;
-                } else {
-                    temEssaTarefa = false;
-                }
+                } // Eu não preciso usar o else temEssaTodo = false por que essa variável já é inicializada como false, então se ela receber true significa que tem uma tarefas com aquele título, caso não tenha a variável vai permanecer false.
             }
             if (temEssaTarefa == false) // Se essa variável for false significa que não existe nenhuma tarefa para remover com o mesmo titulo do que foi passado no parâmetro.
-                System.out.println("[ATENÇÃO] Você não tem nenhuma tarefa com o título: " + tituloTarefa);
+                System.out.println("\n[ATENÇÃO] Você não tem nenhuma tarefa com o título: " + tituloTarefa.toUpperCase());
         } else { // Caso o map seja vazio.
-            System.out.println("[ATENÇÃO] A sua lista de tarefas ainda está vazia.");
+            System.out.println("\n[ATENÇÃO] A sua lista de tarefas ainda está vazia.");
         }
     }
 
@@ -83,9 +81,9 @@ public class TodoListMap {
             StringBuilder imprimirTarefa = new StringBuilder();
             for (Map.Entry<Todo, String> tarefa : this.todos.entrySet()) { // O método entrySet() retorna um conjunto de objetos do tipo Map.Entry<K, V>, onde K é o tipo da chave e V é o tipo do valor associado na coleção Map.
                 if (tarefa.getKey().isConcluida() == true) { // Verifico se a chave da tarefa atual foi marcada como concluída.
-                    imprimirTarefa.append("[x]" + tarefa.getKey() + "\n    - " + tarefa.getValue());
+                    imprimirTarefa.append("[x] " + tarefa.getKey().getTitulo() + "\n    - " + tarefa.getValue() + "\n\n");
                 } else { // Caso a tarefa não esteja marcada como concluída.
-                    imprimirTarefa.append("[ ]" + tarefa.getKey() + "\n    - " + tarefa.getValue());
+                    imprimirTarefa.append("[ ] " + tarefa.getKey().getTitulo() + "\n    - " + tarefa.getValue() + "\n\n");
                 }
             }
             return imprimirTarefa.toString(); // Retorno a impressão das tarefas com o formato acima de acordo se ela está ou não concluída.
